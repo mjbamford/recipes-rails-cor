@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_10_19_002808) do
+ActiveRecord::Schema.define(version: 2020_10_20_005927) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -21,6 +21,47 @@ ActiveRecord::Schema.define(version: 2020_10_19_002808) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.datetime "dob"
+    t.bigint "mentor_id"
+    t.index ["mentor_id"], name: "index_authors_on_mentor_id"
+  end
+
+  create_table "comments", force: :cascade do |t|
+    t.text "body"
+    t.string "commentable_type", null: false
+    t.bigint "commentable_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["commentable_type", "commentable_id"], name: "index_comments_on_commentable_type_and_commentable_id"
+  end
+
+  create_table "cookbooks", force: :cascade do |t|
+    t.string "title"
+    t.datetime "published_at"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "ingredients", force: :cascade do |t|
+    t.string "name"
+    t.string "measurement"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "ingredients_recipes", id: false, force: :cascade do |t|
+    t.bigint "recipe_id", null: false
+    t.bigint "ingredient_id", null: false
+    t.index ["ingredient_id", "recipe_id"], name: "index_ingredients_recipes_on_ingredient_id_and_recipe_id", unique: true
+  end
+
+  create_table "pages", force: :cascade do |t|
+    t.integer "page_number"
+    t.bigint "cookbook_id", null: false
+    t.bigint "recipe_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["cookbook_id"], name: "index_pages_on_cookbook_id"
+    t.index ["recipe_id"], name: "index_pages_on_recipe_id"
   end
 
   create_table "recipes", force: :cascade do |t|
@@ -33,5 +74,7 @@ ActiveRecord::Schema.define(version: 2020_10_19_002808) do
     t.index ["author_id"], name: "index_recipes_on_author_id"
   end
 
+  add_foreign_key "pages", "cookbooks"
+  add_foreign_key "pages", "recipes"
   add_foreign_key "recipes", "authors"
 end
