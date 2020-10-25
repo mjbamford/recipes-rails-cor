@@ -1,0 +1,49 @@
+<%= form_with(model: recipe, local: true) do |form| %>
+  <% if recipe.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(recipe.errors.count, "error") %> prohibited this recipe from being saved:</h2>
+
+      <ul>
+        <% recipe.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :name %>
+    <%= form.text_field :name %>
+  </div>
+
+  <div class="field">
+    <%= form.label :description %>
+    <%= form.text_area :description %>
+  </div>
+
+  <div class="field">
+    <%= form.label :difficulty %>
+    <%= form.number_field :difficulty %>
+  </div>
+
+  <div class="field">
+    <%= form.label :author_id %>
+    <%= form.collection_select :author_id, Author.all, :id, :display_name %>
+  </div>
+
+  <div class="field">
+    <%= form.label :ingredients %>
+    <%= form.collection_check_boxes :ingredient_ids, Ingredient.all, :id, :name %>
+  </div>
+
+  <div class="field">
+    <%= form.label :comment %>
+    <%= form.fields_for :comments, recipe.comments.build do |comment_form| %>
+      <%= comment_form.text_area :body %>
+    <% end %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

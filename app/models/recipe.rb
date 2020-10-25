@@ -4,4 +4,6 @@ class Recipe < ApplicationRecord
     has_many :pages
     has_many :cookbooks, through: :pages
     has_many :comments, as: :commentable
+
+    accepts_nested_attributes_for :comments
 end
