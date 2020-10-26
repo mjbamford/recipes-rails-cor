@@ -23,7 +23,7 @@
 
   <div class="field">
     <%= form.label :difficulty %>
-    <%= form.number_field :difficulty %>
+    <%= form.range_field :difficulty, in: 1..5 %>
   </div>
 
   <div class="field">
@@ -33,7 +33,11 @@
 
   <div class="field">
     <%= form.label :ingredients %>
-    <%= form.collection_check_boxes :ingredient_ids, Ingredient.all, :id, :name %>
+    <%= form.collection_check_boxes :ingredient_ids, Ingredient.all, :id, :name do |b| %>
+      <%= b.label do %>
+        <%= b.check_box + b.text %>
+      <% end %>
+    <% end %>
   </div>
 
   <div class="field">

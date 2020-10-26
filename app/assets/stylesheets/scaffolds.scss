@@ -63,3 +63,6 @@ div.actions {
 
 label {
   display: block; }
+
+input[type='checkbox'] + label {
+  display: inline-block; }
