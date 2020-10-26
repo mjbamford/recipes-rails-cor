@@ -1,5 +1,7 @@
 class SessionsController < ApplicationController
-  before_action :set_session, only: [:destroy]
+  def new
+    redirect_to recipes_path if session[:user_id]
+  end
 
   def create
     user = User.find_by email: params['email']
@@ -11,19 +13,8 @@ class SessionsController < ApplicationController
     end
   end
 
-  # DELETE /sessions/1
-  # DELETE /sessions/1.json
   def destroy
+    session.delete(:user_id)
+    redirect_to new_session_path
   end
-
-  private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_session
-      @session = Session.find(params[:id])
-    end
-
-    # Only allow a list of trusted parameters through.
-    def session_params
-      params.require(:session).permit(:new, :create, :destroy)
-    end
 end

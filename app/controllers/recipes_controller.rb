@@ -1,5 +1,6 @@
 class RecipesController < ApplicationController
-    before_action :authenticate_user
+    # before_action :authenticate_user, only: %i[new create edit update destroy]
+    before_action :authenticate_user, except: :index
     before_action :set_recipe, only: [:show, :edit, :update, :destroy]
   
     def index
@@ -43,7 +44,7 @@ class RecipesController < ApplicationController
       def set_recipe
         @recipe = Recipe.find(params[:id])
       end
-  
+
       # Only allow a list of trusted parameters through.
       def recipe_params
         params.require(:recipe).permit(
