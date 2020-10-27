@@ -21,5 +21,14 @@
   <%= @recipe.author.display_name %>
 </p>
 
-<%#= image_tag "/images/#{@recipe.image_filename}", width: '250px' %>
-<%= image_tag @recipe.image, width: '250px' %>
+<% if @recipe.image_filename %>
+  <hr/>
+  <h6>Local Image</h6>
+  <%= image_tag "/images/#{@recipe.image_filename}", width: '250px' %>
+<% end %>
+
+<% if @recipe.image %>
+  <hr/>
+  <h6>S3 Image</h6>
+  <%= image_tag @recipe.image, width: '250px'  %>
+<% end %>
