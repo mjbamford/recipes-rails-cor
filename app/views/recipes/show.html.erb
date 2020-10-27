@@ -21,4 +21,5 @@
   <%= @recipe.author.display_name %>
 </p>
 
-<%= image_tag "/images/#{@recipe.image_filename}", width: '250px' %>
+<%#= image_tag "/images/#{@recipe.image_filename}", width: '250px' %>
+<%= image_tag @recipe.image, width: '250px' %>

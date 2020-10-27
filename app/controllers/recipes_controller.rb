@@ -22,7 +22,6 @@ class RecipesController < ApplicationController
   
       respond_to do |format|
         if @recipe.save
-          upload_file
           format.html { redirect_to @recipe, notice: 'Recipe was successfully created.' }
         else
           format.html { render :new }
@@ -33,7 +32,6 @@ class RecipesController < ApplicationController
     def update
       respond_to do |format|
         if @recipe.update(recipe_params)
-          upload_file
           format.html { redirect_to @recipe, notice: 'Recipe was successfully updated.' }
         else
           format.html { render :edit }
@@ -60,7 +58,7 @@ class RecipesController < ApplicationController
       # Only allow a list of trusted parameters through.
       def recipe_params
         params.require(:recipe).permit(
-            :name, :description, :difficulty, :author_id, ingredient_ids: [], comments_attributes: [ :body ]
+            :name, :description, :difficulty, :author_id, :image, ingredient_ids: [], comments_attributes: [ :body ]
         )
       end
   end

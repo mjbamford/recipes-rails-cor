@@ -6,4 +6,6 @@ class Recipe < ApplicationRecord
     has_many :comments, as: :commentable
 
     accepts_nested_attributes_for :comments
+
+    has_one_attached :image
 end
