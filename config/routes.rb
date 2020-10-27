@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+
+  post 'checkout', to: 'stripe#checkout'
+
   resources :sessions, only: [:new, :create, :destroy]
   get 'logout', to: 'sessions#destroy'
 
