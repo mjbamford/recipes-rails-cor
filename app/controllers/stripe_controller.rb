@@ -19,7 +19,7 @@ class StripeController < ApplicationController
             #
             # Later on in the guide, you'll create a real success page, but no need to
             # do it yet.
-            success_url: 'https://example.com/success',
+            success_url: successful_checkout_url,
             cancel_url: 'https://example.com/cancel',
         })
 
