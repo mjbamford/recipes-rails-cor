@@ -37,7 +37,7 @@
 
   <script type="text/javascript">
     // Create an instance of the Stripe object with your publishable API key
-    var stripe = Stripe('pk_test_j2GOIAWyO2kDd2YOUEL0LbJ0');
+    var stripe = Stripe('<%= Rails.application.credentials.dig(:stripe, :public_key) %>');
     var checkoutButton = document.getElementById('checkout-button');
 
     checkoutButton.addEventListener('click', function() {
